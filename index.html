@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="Conway's Game of Life using rust-wasm">
+
+  <link rel="canonical" href="http://zkindest.github.io/rust-wa-game-of-life">
+  <meta name="theme-color" content="#90cdf4">
+  <meta name="image"
+    content="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Game_of_life_Simkin_glider_gun.svg/749px-Game_of_life_Simkin_glider_gun.svg.png">
+  <title>Game of Life</title>
+
+  <style>
+    body {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    .fps-info {
+      white-space: pre;
+      font-family: monospace;
+      text-align: left;
+    }
+
+    .generations {
+      display: inline-block;
+      min-width: 4rem;
+      padding: .5rem .5rem;
+      background-color: bisque;
+      border-radius: .25rem;
+      text-align: center;
+    }
+
+    .button {
+      padding: .2rem .8rem;
+      min-width: 3.5rem;
+      height: 2rem;
+      cursor: pointer;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0;
+      user-select: none;
+      flex-flow: row wrap;
+    }
+
+    .controls>*+* {
+      margin-left: .5rem;
+    }
+
+    .controls>* {
+      margin: .3rem;
+    }
+
+    select {
+      width: 5rem;
+      height: 2rem;
+      cursor: pointer;
+    }
+
+    label {
+      cursor: pointer;
+    }
+
+    .checkbox input {
+      cursor: pointer;
+      transform: scale(2);
+    }
+
+    .game-help {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+  <h1>Game of Life
+    <a class="game-help" href="https://en.wikipedia.org/wiki/Conway's_Game_of_Life" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+        class="sm:h-6 sm:w-6 h-5 w-5 sm:ml-4 ml-3 ">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+    </a>
+  </h1>
+  <span id="fpsInfo" class="fps-info"></span>
+  <canvas id="game-of-life-canvas"></canvas>
+  <div class="controls">
+    <div title="generation cycle count">
+      <span>Generations:</span>
+      <span class="generations" id="gen-count">0</span>
+    </div>
+    <button id="play-pause" class="button" title="toggle play/pause">▶</button>
+    <div class="select" title="control generations per second">
+      <label for="fps">gps:</label>
+      <select id="fps">
+        <option value="1">1</option>
+        <option value="5">5</option>
+        <option value="10" selected="selected">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+    <div class="checkbox" title="auto generate cells at selected gps">
+      <label for="auto">Auto</label>
+      <input type="checkbox" id="auto" checked>
+    </div>
+    <button id="reset" class="button" title="kill all cells and reset generations to zero">🔄</button>
+    <button id="random" class="button" title="randomly generate cells">🔀</button>
+  </div>
+  <script src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "js-game-of-life",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/zkindest/js-game-of-life.git",
+  "author": "zkindest <zkindest5@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server",
+    "deploy": "npm run build && touch dist/.nojekyll && gh-pages --dotfiles=true --dist dist/"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "copy-webpack-plugin": "^5.0.0",
+    "gh-pages": "^3.2.3",
+    "mocha": "^9.1.3",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  }
+}
