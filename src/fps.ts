@@ -1,4 +1,7 @@
 export const fps = new class fps {
+  fps: HTMLElement;
+  frames: number[];
+  lastFrameTimeStamp: number;
   constructor() {
     this.fps = document.getElementById('fpsInfo');
     this.frames = [];

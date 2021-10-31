@@ -4,9 +4,9 @@ const GRID_COLOR = '#CCCCCC';
 const DEAD_COLOR = '#FFFFFF';
 const ALIVE_COLOR = '#000000';
 
-let universe, width, height;
+let universe: Universe, width: number, height: number;
 
-const getIndex = (row, column) => {
+const getIndex = (row: number, column: number) => {
   return row * width + column;
 };
 const getCellSize = () => {
@@ -21,8 +21,8 @@ const initUniverse = () => {
 
   universe = new Universe(cols, rows);
 
-  width = universe.width;
-  height = universe.height;
+  width = universe.getWidth();
+  height = universe.getHeight();
 
   // Give the canvas room for all of our cells and a 1px border
   // around each of them.
@@ -31,7 +31,7 @@ const initUniverse = () => {
 
 }
 
-const canvas = document.getElementById('game-of-life-canvas');
+const canvas = document.getElementById('game-of-life-canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
 const playPauseButton = document.getElementById('play-pause');
@@ -64,15 +64,15 @@ const drawGrid = () => {
 };
 
 
-let then, animationId, now, elapsed, fpsInterval, fps = 10, auto = true, generations = 0;
+let then: number, animationId: number, now: number, elapsed: number, fpsInterval: number, fps = 10, auto = true, generations = 0;
 
 const incGenerationCount = () => {
   generations = generations + 1;
-  genCount.textContent = generations;
+  genCount.textContent = String(generations);
 }
 const resetGenerationCount = () => {
   generations = 0;
-  genCount.textContent = generations;
+  genCount.textContent = String(generations);
 }
 
 const drawCells = () => {
@@ -80,12 +80,13 @@ const drawCells = () => {
 
   ctx.beginPath();
 
+  let cells = universe.getCells();
   // Alive cells.
   ctx.fillStyle = ALIVE_COLOR;
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
       const idx = getIndex(row, col);
-      if (universe.cells[idx] !== true) {
+      if (cells[idx] !== true) {
         continue;
       }
 
@@ -98,7 +99,7 @@ const drawCells = () => {
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
       const idx = getIndex(row, col);
-      if (universe.cells[idx] !== false) {
+      if (cells[idx] !== false) {
         continue;
       }
 
@@ -185,7 +186,7 @@ playPauseButton.addEventListener('click', (e) => {
   }
 });
 fpsSelect.addEventListener('change', (e) => {
-  fps = Number(e.target.value);
+  fps = Number((e.target as HTMLSelectElement).value);
 
   if (!isPaused()) {
     pause();
@@ -193,7 +194,7 @@ fpsSelect.addEventListener('change', (e) => {
   }
 })
 autoCheckbox.addEventListener('change', (e) => {
-  auto = e.target.checked;
+  auto = (e.target as HTMLInputElement).checked;
   if (!auto) {
     pause();
 
@@ -228,9 +229,9 @@ randomButton.addEventListener('click', () => {
   drawUniverse();
 })
 
-function debounce(func, timeout = 300) {
-  let timer;
-  return (...args) => {
+function debounce(func: (...args: any) => void, timeout = 300) {
+  let timer: NodeJS.Timeout;
+  return (...args: any) => {
     clearTimeout(timer);
     timer = setTimeout(() => { func.apply(this, args); }, timeout);
   };
