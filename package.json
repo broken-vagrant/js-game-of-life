@@ -1,7 +1,7 @@
 {
   "name": "js-game-of-life",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.ts",
   "repository": "https://github.com/zkindest/js-game-of-life.git",
   "author": "zkindest <zkindest5@gmail.com>",
   "license": "MIT",
