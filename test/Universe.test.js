@@ -15,9 +15,9 @@ it('check initialization and set cells', () => {
   let universe = new Universe(6, 6, false);
   let alivePos = [(1, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
   universe.setCells(alivePos);
-  if (!(universe.cells.length == 36)) throw Error('dimensions not set correctly');
+  if (!(universe.cells.length == 36)) throw Error(`universe length mismatch: 36 != ${universe.cells.length}`);
   alivePos.forEach((pos) => {
-    if (!universe.cells[universe.getIndex(pos[0], pos[1])]) throw Error("cells didn't set");
+    if (!universe.cells[universe.getIndex(pos[0], pos[1])]) throw Error("universe.setCells is not working properly");
   })
 })
 
