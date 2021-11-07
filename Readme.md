@@ -1,6 +1,6 @@
 # Conway's Game of Life
 ## Why I built the project this way
-- This project is js-only version of Game of Life, I built this to measure performance diff between js-wasm, js-only and react versions.
+- This project is js-only version of Game of Life.
 - Here are [js-wasm](https://github.com/zkindest/rust-wa-game-of-life), [react](https://github.com/zkindest/react-game-of-life) repos.
 ## Usage
 ```ts
