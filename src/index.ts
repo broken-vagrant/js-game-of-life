@@ -141,7 +141,6 @@ const renderLoop = () => {
   }
 };
 
-//Adding button interactivity
 const isPaused = () => {
   return !animationId;
 };
